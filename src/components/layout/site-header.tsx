@@ -28,6 +28,11 @@ export async function SiteHeader() {
               {label}
             </Link>
           ))}
+          {session?.user.role === "ADMIN" ? (
+            <Link href="/admin" className="font-semibold text-teal-800 hover:text-teal-900">
+              Admin
+            </Link>
+          ) : null}
         </nav>
         <div className="flex items-center gap-2">
           <ButtonLink href="/cart" variant="ghost" className="px-3" aria-label="Cart">

@@ -4,7 +4,7 @@ import { logoutAction } from "@/server/actions/auth-actions";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { formatDate, formatMoney } from "@/lib/format";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +20,10 @@ export default async function AccountPage() {
           <h1 className="text-3xl font-semibold text-slate-950">Account</h1>
           <p className="mt-2 text-sm text-slate-600">{session.user.email}</p>
         </div>
-        <form action={logoutAction}><Button variant="secondary">Sign out</Button></form>
+        <div className="flex gap-2">
+          {session.user.role === "ADMIN" ? <ButtonLink href="/admin">Admin dashboard</ButtonLink> : null}
+          <form action={logoutAction}><Button variant="secondary">Sign out</Button></form>
+        </div>
       </div>
       <div className="mt-6 border border-slate-200">
         <div className="flex items-center justify-between border-b border-slate-200 p-4">
