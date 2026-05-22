@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meridian Research Supply
 
-## Getting Started
+Production-oriented research-only ecommerce site built with Next.js App Router, TypeScript, Tailwind CSS, Prisma/PostgreSQL, Auth.js, Stripe Checkout, Stripe webhooks, Resend, Zod, and React Hook Form.
 
-First, run the development server:
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Edit `.env` with real values:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/research_supply"
+AUTH_SECRET="use-a-long-random-secret"
+NEXTAUTH_SECRET="use-a-long-random-secret"
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+RESEND_API_KEY="re_..."
+ADMIN_EMAIL="admin@example.com"
+SEED_ADMIN_PASSWORD="change-this-password"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create the database, run migrations, seed products/admin, and start:
 
-## Learn More
+```bash
+npm run prisma:generate
+npm run prisma:migrate -- --name init
+npm run prisma:seed
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stripe Webhook
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The app creates an internal pending order before redirecting to Stripe Checkout. Fulfilment logic runs only from the verified webhook at:
 
-## Deploy on Vercel
+```text
+POST /api/stripe/webhook
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For local testing:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhook
+```
+
+Copy the emitted webhook secret into `STRIPE_WEBHOOK_SECRET`.
+
+## Admin Access
+
+The seed script creates an admin user from:
+
+```text
+ADMIN_EMAIL
+SEED_ADMIN_PASSWORD
+```
+
+Admin routes are under `/admin`.
+
+## Included
+
+- Research access gate with required confirmations stored in localStorage and a cookie
+- Product catalogue, product detail pages, persistent cart, checkout, and order success page
+- Pending order creation before Stripe redirect
+- Stripe webhook signature verification and idempotent webhook event storage
+- Inventory decrement only after webhook-confirmed payment
+- Payment provider abstraction and internal payments table
+- Customer login/register, account, and order history
+- Admin dashboard, product editing, inventory, orders, customers, and discounts
+- Resend transactional email templates for order/payment/shipping/cancel/contact workflows
+- Zod validation for forms and API inputs
+- Research-only compliance copy across product and checkout surfaces
+- Metadata, structured product data, sitemap, and robots.txt
+
+## Quality Checks
+
+```bash
+npm run lint
+npm run build
+```
