@@ -30,17 +30,22 @@ export async function registerAction(_state: AuthState, formData: FormData): Pro
 }
 
 export async function loginAction(_state: AuthState, formData: FormData): Promise<AuthState> {
+  const email = String(formData.get("email") ?? "").toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  const user = await prisma.user.findUnique({ where: { email }, select: { role: true } });
+  const redirectTo = user?.role === "ADMIN" ? "/admin" : "/account";
+
   try {
     await signIn("credentials", {
-      email: String(formData.get("email") ?? "").toLowerCase(),
-      password: String(formData.get("password") ?? ""),
-      redirectTo: "/account",
+      email,
+      password,
+      redirectTo,
     });
   } catch (error) {
     if (error instanceof AuthError) return { error: "Invalid email or password." };
     throw error;
   }
-  redirect("/account");
+  redirect(redirectTo);
 }
 
 export async function logoutAction() {
