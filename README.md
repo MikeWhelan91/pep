@@ -32,6 +32,8 @@ npm run prisma:seed
 npm run dev
 ```
 
+The app also accepts Vercel/Neon generated database variable names such as `DATABASE_URL_POSTGRES_PRISMA_URL`, `DATABASE_URL_DATABASE_URL`, `POSTGRES_PRISMA_URL`, and `DATABASE_URL_UNPOOLED`.
+
 Open `http://localhost:3000`.
 
 ## Stripe Webhook

@@ -2,8 +2,21 @@ import { PrismaClient, Role } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
+function databaseUrl() {
+  return (
+    process.env.DATABASE_URL ??
+    process.env.DATABASE_URL_POSTGRES_PRISMA_URL ??
+    process.env.DATABASE_URL_DATABASE_URL ??
+    process.env.POSTGRES_PRISMA_URL ??
+    process.env.POSTGRES_URL ??
+    process.env.POSTGRES_URL_NON_POOLING ??
+    process.env.DATABASE_URL_UNPOOLED ??
+    "postgresql://postgres:postgres@localhost:5432/research_supply"
+  );
+}
+
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/research_supply",
+  connectionString: databaseUrl(),
 });
 const prisma = new PrismaClient({ adapter });
 
