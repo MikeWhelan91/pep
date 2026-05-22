@@ -16,19 +16,19 @@ export default async function AdminDashboardPage() {
     <div className="grid gap-6">
       <div className="grid gap-4 md:grid-cols-4">
         {[["Revenue", formatMoney(revenue)], ["Orders", orders.length], ["Products", products.length], ["Low stock", lowStock], ["Customers", customers]].map(([label, value]) => (
-          <div key={label} className="border border-slate-200 p-5">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
-            <p className="mt-2 text-2xl font-semibold text-slate-950">{value}</p>
+          <div key={label} className="glass-panel p-5">
+            <p className="text-xs font-semibold uppercase tracking-[.18em] text-cyan-200">{label}</p>
+            <p className="mt-2 text-2xl font-semibold text-white">{value}</p>
           </div>
         ))}
       </div>
-      <div className="border border-slate-200">
-        <h2 className="border-b border-slate-200 p-4 font-semibold">Recent orders</h2>
-        <table className="w-full text-sm">
+      <div className="glass-panel overflow-hidden">
+        <h2 className="border-b border-cyan-300/15 p-4 font-semibold text-white">Recent orders</h2>
+        <table className="w-full text-sm text-slate-300">
           <tbody>
             {orders.map((order) => (
-              <tr key={order.id} className="border-b border-slate-200">
-                <td className="p-4 font-semibold">{order.orderNumber}</td>
+              <tr key={order.id} className="border-b border-cyan-300/10">
+                <td className="p-4 font-semibold text-cyan-100">{order.orderNumber}</td>
                 <td className="p-4">{order.customerEmail}</td>
                 <td className="p-4">{order.status}</td>
                 <td className="p-4 text-right">{formatMoney(order.totalCents)}</td>

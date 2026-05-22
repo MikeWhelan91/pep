@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #172033;
+  --background: #050a14;
+  --foreground: #e5f4ff;
 }
 
 @theme inline {
@@ -26,4 +26,41 @@ textarea {
 
 table {
   border-collapse: collapse;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.32);
+  color: #ffffff;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(680%);
+    opacity: 0;
+  }
+}
+
+.scanline {
+  animation: scan 7s linear infinite;
+}
+
+.glass-panel {
+  border: 1px solid rgba(103, 232, 249, 0.18);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(2, 6, 23, 0.78));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.neon-border {
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.24), 0 0 36px rgba(34, 211, 238, 0.1);
+}
+
+.text-balance {
+  text-wrap: balance;
 }

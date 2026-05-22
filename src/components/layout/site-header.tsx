@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Beaker, ShoppingCart, UserRound } from "lucide-react";
+import { Beaker, CircuitBoard, ShoppingCart, UserRound } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { ButtonLink } from "@/components/ui/button";
 
@@ -14,22 +14,25 @@ const nav = [
 export async function SiteHeader() {
   const session = await auth();
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-cyan-300/20 bg-slate-950/88 text-slate-100 shadow-[0_8px_40px_rgba(0,0,0,.35)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
-        <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-tight text-slate-950">
-          <span className="flex size-9 items-center justify-center rounded-md border border-teal-700 text-teal-800">
+        <Link href="/" className="group flex items-center gap-3 text-sm font-bold tracking-tight text-white">
+          <span className="flex size-10 items-center justify-center rounded-md border border-cyan-300/50 bg-cyan-300/10 text-cyan-200 shadow-[0_0_24px_rgba(34,211,238,.18)] transition group-hover:scale-105">
             <Beaker size={19} />
           </span>
-          Meridian Research Supply
+          <span>
+            Meridian <span className="text-cyan-200">Research</span> Supply
+          </span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-300 md:flex">
           {nav.map(([label, href]) => (
-            <Link key={href} href={href} className="hover:text-teal-800">
+            <Link key={href} href={href} className="relative hover:text-cyan-100 after:absolute after:-bottom-2 after:left-0 after:h-px after:w-0 after:bg-cyan-300 after:transition-all hover:after:w-full">
               {label}
             </Link>
           ))}
           {session?.user.role === "ADMIN" ? (
-            <Link href="/admin" className="font-semibold text-teal-800 hover:text-teal-900">
+            <Link href="/admin" className="inline-flex items-center gap-1 font-semibold text-cyan-200 hover:text-cyan-100">
+              <CircuitBoard size={15} />
               Admin
             </Link>
           ) : null}
