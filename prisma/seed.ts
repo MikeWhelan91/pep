@@ -1,7 +1,11 @@
 import { PrismaClient, Role } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/research_supply",
+});
+const prisma = new PrismaClient({ adapter });
 
 const products = [
   {
