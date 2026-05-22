@@ -58,7 +58,7 @@ const products = [
     form: "Crystalline powder",
     batchNumber: "B-ACB-2602",
     coaFileUrl: "/coa/sample",
-    imageUrls: ["/product-vial.svg"],
+    imageUrls: ["/products/analytical-compound-b.png"],
   },
   {
     name: "Reference Material C",
@@ -75,7 +75,7 @@ const products = [
     form: "Powder",
     batchNumber: "B-RMC-2603",
     coaFileUrl: "/coa/sample",
-    imageUrls: ["/product-vial.svg"],
+    imageUrls: ["/products/reference-material-c.png"],
   },
   {
     name: "Lab Reagent D",
@@ -92,7 +92,7 @@ const products = [
     form: "Lyophilised powder",
     batchNumber: "B-LRD-2604",
     coaFileUrl: "/coa/sample",
-    imageUrls: ["/product-vial.svg"],
+    imageUrls: ["/products/lab-reagent-d.png"],
   },
 ];
 

@@ -1,14 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@prisma/client";
 import { AddToCart } from "@/components/cart/add-to-cart";
+import { ProductImage } from "@/components/product/product-image";
 import { formatMoney } from "@/lib/format";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="grid gap-4 border border-slate-200 bg-white p-4">
       <Link href={`/product/${product.slug}`} className="relative aspect-square bg-slate-50">
-        <Image src={product.imageUrls[0] ?? "/product-vial.svg"} alt="" fill className="object-contain p-8" />
+        <ProductImage src={product.imageUrls[0] ?? "/product-vial.svg"} alt="" className="h-full w-full object-contain p-8" />
       </Link>
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-teal-800">{product.category}</p>

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AddToCart } from "@/components/cart/add-to-cart";
+import { ProductImage } from "@/components/product/product-image";
 import { ProductSpecs } from "@/components/product/product-specs";
 import { ComplianceNote } from "@/components/ui/compliance-note";
 import { formatMoney } from "@/lib/format";
@@ -39,7 +39,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
         <div className="relative aspect-square border border-slate-200 bg-slate-50">
-          <Image src={product.imageUrls[0] ?? "/product-vial.svg"} alt="" fill className="object-contain p-12" priority />
+          <ProductImage src={product.imageUrls[0] ?? "/product-vial.svg"} alt="" className="h-full w-full object-contain p-12" priority />
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">{product.category}</p>

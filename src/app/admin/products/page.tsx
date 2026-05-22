@@ -29,6 +29,10 @@ export default async function AdminProductsPage() {
           <input className={input} name="batchNumber" placeholder="Batch" />
           <input className={input} name="coaFileUrl" placeholder="COA URL" />
           <input className={input} name="imageUrls" placeholder="Image URL" />
+          <label className="grid gap-1 text-xs font-semibold text-slate-600">
+            Upload image
+            <input className="text-sm" name="imageFile" type="file" accept="image/*" />
+          </label>
           <label className="flex items-center gap-2 text-sm"><input name="active" type="checkbox" defaultChecked /> Active</label>
         </div>
         <textarea className="min-h-20 border border-slate-300 p-3 text-sm" name="shortDescription" placeholder="Short description" required />
@@ -65,6 +69,10 @@ export default async function AdminProductsPage() {
                       <input className={input} name="batchNumber" defaultValue={product.batchNumber ?? ""} />
                       <input className={input} name="coaFileUrl" defaultValue={product.coaFileUrl ?? ""} />
                       <input className={input} name="imageUrls" defaultValue={product.imageUrls.join("\n")} />
+                      <label className="grid gap-1 text-xs font-semibold text-slate-600">
+                        Upload replacement image
+                        <input className="text-sm" name="imageFile" type="file" accept="image/*" />
+                      </label>
                       <label className="flex items-center gap-2 text-sm"><input name="active" type="checkbox" defaultChecked={product.active} /> Active</label>
                       <textarea className="min-h-20 border border-slate-300 p-3 text-sm md:col-span-3" name="shortDescription" defaultValue={product.shortDescription} required />
                       <textarea className="min-h-24 border border-slate-300 p-3 text-sm md:col-span-3" name="fullDescription" defaultValue={product.fullDescription} required />
