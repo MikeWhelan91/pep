@@ -1,81 +1,93 @@
 import { deleteProductAction, upsertProductAction } from "@/server/actions/admin-actions";
+import type { ReactNode } from "react";
 import { prisma } from "@/lib/db";
 import { formatMoney } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
 
+const fieldClass = "field-dark h-11 px-3 text-sm";
+const areaClass = "field-dark p-3 text-sm";
+const labelClass = "grid gap-1.5 text-xs font-semibold uppercase tracking-[.12em] text-cyan-100";
+
+function Field({ label, children, wide = false }: { label: string; children: ReactNode; wide?: boolean }) {
+  return <label className={`${labelClass} ${wide ? "md:col-span-2 xl:col-span-4" : ""}`}>{label}{children}</label>;
+}
+
 export default async function AdminProductsPage() {
   const products = await prisma.product.findMany({ orderBy: { createdAt: "desc" } });
-  const input = "h-10 border border-slate-300 px-3 text-sm";
 
   return (
     <div className="grid gap-6">
-      <form action={upsertProductAction} className="grid gap-4 rounded-3xl border border-slate-200 p-5">
-        <h2 className="font-semibold text-slate-950">Create product</h2>
-        <div className="grid gap-3 md:grid-cols-4">
-          <input className={input} name="name" placeholder="Name" required />
-          <input className={input} name="slug" placeholder="slug" required />
-          <input className={input} name="category" placeholder="Category" required />
-          <input className={input} name="sku" placeholder="SKU" required />
-          <input className={input} name="priceCents" type="number" placeholder="Price cents" required />
-          <input className={input} name="compareAtCents" type="number" placeholder="Compare cents" />
-          <input className={input} name="stockQuantity" type="number" placeholder="Stock" required />
-          <input className={input} name="purityPercent" type="number" step="0.01" placeholder="Purity" required />
-          <input className={input} name="molecularWeight" placeholder="Molecular weight" />
-          <input className={input} name="casNumber" placeholder="CAS" />
-          <input className={input} name="storageCondition" placeholder="Storage" required />
-          <input className={input} name="form" placeholder="Form" required />
-          <input className={input} name="batchNumber" placeholder="Batch" />
-          <input className={input} name="coaFileUrl" placeholder="COA URL" />
-          <input className={input} name="imageUrls" placeholder="Image URL" />
-          <label className="grid gap-1 text-xs font-semibold text-slate-600">
-            Upload image
-            <input className="text-sm" name="imageFile" type="file" accept="image/*" />
-          </label>
-          <label className="flex items-center gap-2 text-sm"><input name="active" type="checkbox" defaultChecked /> Active</label>
+      <form action={upsertProductAction} className="glass-panel grid gap-5 p-5">
+        <div>
+          <h2 className="text-xl font-semibold text-white">Create product</h2>
+          <p className="mt-1 text-sm text-slate-500">Add catalogue, documentation, stock, and product imagery.</p>
         </div>
-        <textarea className="min-h-20 rounded-xl border border-slate-300 p-3 text-sm" name="shortDescription" placeholder="Short description" required />
-        <textarea className="min-h-28 rounded-xl border border-slate-300 p-3 text-sm" name="fullDescription" placeholder="Full description" required />
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <Field label="Name"><input className={fieldClass} name="name" required /></Field>
+          <Field label="Slug"><input className={fieldClass} name="slug" required /></Field>
+          <Field label="Category"><input className={fieldClass} name="category" required /></Field>
+          <Field label="SKU"><input className={fieldClass} name="sku" required /></Field>
+          <Field label="Price cents"><input className={fieldClass} name="priceCents" type="number" required /></Field>
+          <Field label="Compare cents"><input className={fieldClass} name="compareAtCents" type="number" /></Field>
+          <Field label="Stock"><input className={fieldClass} name="stockQuantity" type="number" required /></Field>
+          <Field label="Purity"><input className={fieldClass} name="purityPercent" type="number" step="0.01" required /></Field>
+          <Field label="Molecular weight"><input className={fieldClass} name="molecularWeight" /></Field>
+          <Field label="CAS"><input className={fieldClass} name="casNumber" /></Field>
+          <Field label="Storage"><input className={fieldClass} name="storageCondition" required /></Field>
+          <Field label="Form"><input className={fieldClass} name="form" required /></Field>
+          <Field label="Batch"><input className={fieldClass} name="batchNumber" /></Field>
+          <Field label="COA URL"><input className={fieldClass} name="coaFileUrl" /></Field>
+          <Field label="Image URL"><input className={fieldClass} name="imageUrls" /></Field>
+          <Field label="Upload image">
+            <input className="rounded-2xl border border-cyan-300/20 bg-slate-950/70 px-3 py-2 text-sm text-slate-300 file:mr-3 file:rounded-xl file:border-0 file:bg-cyan-300 file:px-3 file:py-1.5 file:font-semibold file:text-slate-950" name="imageFile" type="file" accept="image/*" />
+          </Field>
+          <label className="flex items-center gap-2 text-sm font-semibold text-slate-200"><input name="active" type="checkbox" defaultChecked /> Active</label>
+          <Field label="Short description" wide><textarea className={`${areaClass} min-h-24`} name="shortDescription" required /></Field>
+          <Field label="Full description" wide><textarea className={`${areaClass} min-h-32`} name="fullDescription" required /></Field>
+        </div>
         <Button className="w-fit">Save product</Button>
       </form>
-      <div className="rounded-3xl border border-slate-200">
-        <table className="w-full text-sm">
-          <thead className="bg-slate-50 text-left"><tr><th className="p-3">Product</th><th className="p-3">SKU</th><th className="p-3">Price</th><th className="p-3">Stock</th><th className="p-3"></th></tr></thead>
+
+      <div className="glass-panel overflow-hidden">
+        <table className="w-full text-sm text-slate-300">
+          <thead className="bg-cyan-300/8 text-left text-xs uppercase tracking-[.16em] text-cyan-100">
+            <tr><th className="p-4">Product</th><th className="p-4">SKU</th><th className="p-4">Price</th><th className="p-4">Stock</th><th className="p-4"></th></tr>
+          </thead>
           <tbody>
             {products.map((product) => (
-              <tr key={product.id} className="border-t border-slate-200">
-                <td className="p-3"><span className="font-semibold">{product.name}</span><br /><span className="text-xs text-slate-500">{product.category}</span></td>
-                <td className="p-3">{product.sku}</td>
-                <td className="p-3">{formatMoney(product.priceCents)}</td>
-                <td className="p-3">{product.stockQuantity}</td>
-                <td className="p-3 text-right">
+              <tr key={product.id} className="border-t border-cyan-300/12 align-top">
+                <td className="p-4"><span className="font-semibold text-white">{product.name}</span><br /><span className="text-xs text-slate-500">{product.category}</span></td>
+                <td className="p-4">{product.sku}</td>
+                <td className="p-4">{formatMoney(product.priceCents)}</td>
+                <td className="p-4">{product.stockQuantity}</td>
+                <td className="p-4 text-right">
                   <details className="text-left">
-                    <summary className="cursor-pointer font-semibold text-teal-800">Edit</summary>
-                    <form action={upsertProductAction} className="mt-3 grid gap-3 rounded-2xl border border-slate-200 p-3 md:grid-cols-3">
+                    <summary className="cursor-pointer rounded-full border border-cyan-300/25 px-4 py-2 text-center font-semibold text-cyan-100">Edit</summary>
+                    <form action={upsertProductAction} className="mt-4 grid gap-4 rounded-3xl border border-cyan-300/15 bg-slate-950/70 p-4 md:grid-cols-2 xl:grid-cols-4">
                       <input type="hidden" name="id" value={product.id} />
-                      <input className={input} name="name" defaultValue={product.name} required />
-                      <input className={input} name="slug" defaultValue={product.slug} required />
-                      <input className={input} name="category" defaultValue={product.category} required />
-                      <input className={input} name="sku" defaultValue={product.sku} required />
-                      <input className={input} name="priceCents" type="number" defaultValue={product.priceCents} required />
-                      <input className={input} name="compareAtCents" type="number" defaultValue={product.compareAtCents ?? ""} />
-                      <input className={input} name="stockQuantity" type="number" defaultValue={product.stockQuantity} required />
-                      <input className={input} name="purityPercent" type="number" step="0.01" defaultValue={String(product.purityPercent)} required />
-                      <input className={input} name="molecularWeight" defaultValue={product.molecularWeight ?? ""} />
-                      <input className={input} name="casNumber" defaultValue={product.casNumber ?? ""} />
-                      <input className={input} name="storageCondition" defaultValue={product.storageCondition} required />
-                      <input className={input} name="form" defaultValue={product.form} required />
-                      <input className={input} name="batchNumber" defaultValue={product.batchNumber ?? ""} />
-                      <input className={input} name="coaFileUrl" defaultValue={product.coaFileUrl ?? ""} />
-                      <input className={input} name="imageUrls" defaultValue={product.imageUrls.join("\n")} />
-                      <label className="grid gap-1 text-xs font-semibold text-slate-600">
-                        Upload replacement image
-                        <input className="text-sm" name="imageFile" type="file" accept="image/*" />
-                      </label>
-                      <label className="flex items-center gap-2 text-sm"><input name="active" type="checkbox" defaultChecked={product.active} /> Active</label>
-                      <textarea className="min-h-20 rounded-xl border border-slate-300 p-3 text-sm md:col-span-3" name="shortDescription" defaultValue={product.shortDescription} required />
-                      <textarea className="min-h-24 rounded-xl border border-slate-300 p-3 text-sm md:col-span-3" name="fullDescription" defaultValue={product.fullDescription} required />
+                      <Field label="Name"><input className={fieldClass} name="name" defaultValue={product.name} required /></Field>
+                      <Field label="Slug"><input className={fieldClass} name="slug" defaultValue={product.slug} required /></Field>
+                      <Field label="Category"><input className={fieldClass} name="category" defaultValue={product.category} required /></Field>
+                      <Field label="SKU"><input className={fieldClass} name="sku" defaultValue={product.sku} required /></Field>
+                      <Field label="Price cents"><input className={fieldClass} name="priceCents" type="number" defaultValue={product.priceCents} required /></Field>
+                      <Field label="Compare cents"><input className={fieldClass} name="compareAtCents" type="number" defaultValue={product.compareAtCents ?? ""} /></Field>
+                      <Field label="Stock"><input className={fieldClass} name="stockQuantity" type="number" defaultValue={product.stockQuantity} required /></Field>
+                      <Field label="Purity"><input className={fieldClass} name="purityPercent" type="number" step="0.01" defaultValue={String(product.purityPercent)} required /></Field>
+                      <Field label="Molecular weight"><input className={fieldClass} name="molecularWeight" defaultValue={product.molecularWeight ?? ""} /></Field>
+                      <Field label="CAS"><input className={fieldClass} name="casNumber" defaultValue={product.casNumber ?? ""} /></Field>
+                      <Field label="Storage"><input className={fieldClass} name="storageCondition" defaultValue={product.storageCondition} required /></Field>
+                      <Field label="Form"><input className={fieldClass} name="form" defaultValue={product.form} required /></Field>
+                      <Field label="Batch"><input className={fieldClass} name="batchNumber" defaultValue={product.batchNumber ?? ""} /></Field>
+                      <Field label="COA URL"><input className={fieldClass} name="coaFileUrl" defaultValue={product.coaFileUrl ?? ""} /></Field>
+                      <Field label="Image URLs"><input className={fieldClass} name="imageUrls" defaultValue={product.imageUrls.join("\n")} /></Field>
+                      <Field label="Upload image">
+                        <input className="rounded-2xl border border-cyan-300/20 bg-slate-950/70 px-3 py-2 text-sm text-slate-300 file:mr-3 file:rounded-xl file:border-0 file:bg-cyan-300 file:px-3 file:py-1.5 file:font-semibold file:text-slate-950" name="imageFile" type="file" accept="image/*" />
+                      </Field>
+                      <label className="flex items-center gap-2 text-sm font-semibold text-slate-200"><input name="active" type="checkbox" defaultChecked={product.active} /> Active</label>
+                      <Field label="Short description" wide><textarea className={`${areaClass} min-h-24`} name="shortDescription" defaultValue={product.shortDescription} required /></Field>
+                      <Field label="Full description" wide><textarea className={`${areaClass} min-h-28`} name="fullDescription" defaultValue={product.fullDescription} required /></Field>
                       <Button className="w-fit">Save edits</Button>
                     </form>
                   </details>

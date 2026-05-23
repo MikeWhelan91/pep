@@ -1,4 +1,4 @@
-import { Atom, Boxes, ClipboardCheck, PackageCheck, ShieldCheck, Truck } from "lucide-react";
+import { Atom, ClipboardCheck, PackageCheck, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductImage } from "@/components/product/product-image";
@@ -14,13 +14,12 @@ const proofPoints = [
   { Icon: Atom, title: "Research-only", copy: "No therapeutic, diagnostic, usage, or dosing guidance." },
   { Icon: ClipboardCheck, title: "COA records", copy: "Batch fields, purity, storage, and documentation links." },
   { Icon: Truck, title: "Tracked fulfilment", copy: "Order status, tracking numbers, and event history." },
-  { Icon: ShieldCheck, title: "Webhook confirmed", copy: "Inventory changes only after provider confirmation." },
+  { Icon: ShieldCheck, title: "Controlled access", copy: "Research-only confirmations before catalogue access." },
 ];
 
 export default async function Home() {
   const products = await prisma.product.findMany({ where: { active: true }, take: 4, orderBy: { createdAt: "desc" } });
   const heroProducts = products.slice(0, 3);
-  const totalStock = products.reduce((sum, product) => sum + product.stockQuantity, 0);
 
   return (
     <div className="bg-slate-950 text-slate-100">
@@ -32,7 +31,7 @@ export default async function Home() {
               Future-grade lab supply without clinical noise.
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              A controlled research-only catalogue with batch records, inventory visibility, COA access, webhook-confirmed payments, and admin-grade order operations.
+              A controlled research-only catalogue for qualified laboratory buyers, with batch documentation, COA access, careful packaging, and clear procurement boundaries.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/shop">Browse catalogue</ButtonLink>
@@ -47,14 +46,14 @@ export default async function Home() {
                   <div className="flex flex-col justify-between rounded-[1.5rem] border border-cyan-300/15 bg-slate-950/72 p-5">
                     <div>
                       <StatusChip tone="violet">Live procurement console</StatusChip>
-                      <h2 className="mt-5 text-2xl font-semibold text-white">Batch records, stock, and purchase flow in one operating surface.</h2>
-                      <p className="mt-3 text-sm leading-6 text-slate-400">The storefront presents only research-use materials with clear documentation, stock visibility, and payment confirmation before inventory changes.</p>
+                      <h2 className="mt-5 text-2xl font-semibold text-white">Review materials with clear documentation before you buy.</h2>
+                      <p className="mt-3 text-sm leading-6 text-slate-400">Each catalogue record focuses on procurement details: form, storage, purity, batch references, and available documentation.</p>
                     </div>
                     <div className="mt-8 grid grid-cols-3 gap-3 text-center">
                       {[
-                        ["Active SKUs", products.length.toString()],
-                        ["Units", totalStock.toString()],
-                        ["Checkout", "Webhook"],
+                        ["Records", "COA ready"],
+                        ["Use", "Research only"],
+                        ["Dispatch", "Tracked"],
                       ].map(([label, value]) => (
                         <div key={label} className="rounded-2xl border border-cyan-300/15 bg-cyan-300/5 px-3 py-4">
                           <p className="text-lg font-semibold text-cyan-100">{value}</p>
@@ -73,7 +72,7 @@ export default async function Home() {
                         </div>
                         <div>
                           <p className="font-semibold text-white">{product.name}</p>
-                          <p className="mt-1 text-xs text-slate-500">{product.sku} · {product.purityPercent.toString()}% purity · {product.stockQuantity} units</p>
+                          <p className="mt-1 text-xs text-slate-500">{product.category} · {product.purityPercent.toString()}% purity · {product.form}</p>
                         </div>
                         <div className="text-right">
                           <p className="font-semibold text-cyan-100">{formatMoney(product.priceCents)}</p>
@@ -84,8 +83,8 @@ export default async function Home() {
                     <div className="grid gap-3 sm:grid-cols-3">
                       {[
                         { title: "COA verified", Icon: ClipboardCheck },
-                        { title: "Stock synced", Icon: Boxes },
-                        { title: "Order gated", Icon: PackageCheck },
+                        { title: "Research framed", Icon: ShieldCheck },
+                        { title: "Tracked dispatch", Icon: PackageCheck },
                       ].map(({ title, Icon }) => (
                         <div key={title} className="rounded-2xl border border-cyan-300/15 bg-slate-950/68 p-4 text-center">
                           <Icon className="mx-auto text-cyan-200" size={22} />

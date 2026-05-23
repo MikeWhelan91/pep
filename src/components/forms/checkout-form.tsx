@@ -40,14 +40,14 @@ export function CheckoutForm() {
     globalThis.location.assign(payload.url);
   }
 
-  const input = "h-10 w-full border border-slate-300 px-3 text-sm";
-  const label = "grid gap-1 text-sm font-medium text-slate-700";
+  const input = "field-dark h-11 w-full px-3 text-sm";
+  const label = "grid gap-1.5 text-xs font-semibold uppercase tracking-[.12em] text-cyan-100";
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8 lg:grid-cols-[1fr_360px]">
       <div className="grid gap-6">
-        <section className="rounded-3xl border border-slate-200 p-5">
-          <h2 className="text-lg font-semibold text-slate-950">Customer details</h2>
+        <section className="glass-panel p-5">
+          <h2 className="text-lg font-semibold text-white">Customer details</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className={label}>Name<input className={input} {...form.register("customerName")} /></label>
             <label className={label}>Email<input className={input} type="email" {...form.register("customerEmail")} /></label>
@@ -55,8 +55,8 @@ export function CheckoutForm() {
             <label className={label}>Coupon code<input className={input} {...form.register("couponCode")} /></label>
           </div>
         </section>
-        <section className="rounded-3xl border border-slate-200 p-5">
-          <h2 className="text-lg font-semibold text-slate-950">Shipping address</h2>
+        <section className="glass-panel p-5">
+          <h2 className="text-lg font-semibold text-white">Shipping address</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className={label}>Address line 1<input className={input} {...form.register("shippingAddress.line1")} /></label>
             <label className={label}>Address line 2<input className={input} {...form.register("shippingAddress.line2")} /></label>
@@ -67,10 +67,10 @@ export function CheckoutForm() {
           </div>
         </section>
       </div>
-      <aside className="h-fit rounded-3xl border border-slate-200 p-5">
-        <h2 className="text-lg font-semibold text-slate-950">Checkout</h2>
-        <p className="mt-2 text-sm text-slate-600">An internal pending order is created before redirecting to Stripe Checkout. Fulfilment only begins after webhook confirmation.</p>
-        {error ? <p className="mt-4 border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-700">{error}</p> : null}
+      <aside className="glass-panel h-fit p-5">
+        <h2 className="text-lg font-semibold text-white">Payment</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-400">A pending order is created before redirecting to Stripe Checkout. Fulfilment only begins after payment confirmation.</p>
+        {error ? <p className="mt-4 rounded-2xl border border-red-300/20 bg-red-500/10 p-3 text-sm font-semibold text-red-200">{error}</p> : null}
         <Button className="mt-5 w-full" disabled={!cart.length}>Pay with Stripe</Button>
         <div className="mt-5"><ComplianceNote compact /></div>
       </aside>
