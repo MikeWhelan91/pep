@@ -21,7 +21,7 @@ body {
 input,
 select,
 textarea {
-  color: #0f172a;
+  color: inherit;
 }
 
 table {
@@ -56,6 +56,24 @@ table {
   border-radius: 22px;
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(2, 6, 23, 0.78));
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.field-dark {
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.72);
+  color: #f8fafc;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.field-dark::placeholder {
+  color: #64748b;
+}
+
+.field-dark:focus {
+  border-color: rgba(103, 232, 249, 0.78);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12);
+  outline: none;
 }
 
 .soft-panel {

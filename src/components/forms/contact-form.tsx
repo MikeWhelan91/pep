@@ -15,12 +15,12 @@ export function ContactForm() {
     setStatus(response.ok ? "Message sent." : "Message could not be sent.");
   }
   return (
-    <form action={submit} className="grid gap-4 rounded-3xl border border-slate-200 p-5">
-      <input className="h-10 rounded-xl border border-slate-300 px-3" name="name" placeholder="Name" required />
-      <input className="h-10 rounded-xl border border-slate-300 px-3" name="email" type="email" placeholder="Email" required />
-      <input className="h-10 rounded-xl border border-slate-300 px-3" name="institution" placeholder="Institution" required />
-      <textarea className="min-h-36 rounded-xl border border-slate-300 p-3" name="message" placeholder="Message" required />
-      {status ? <p className="text-sm font-semibold text-slate-700">{status}</p> : null}
+    <form action={submit} className="glass-panel grid gap-4 p-5 md:p-7">
+      <input className="field-dark h-12 px-4" name="name" placeholder="Name" required />
+      <input className="field-dark h-12 px-4" name="email" type="email" placeholder="Email" required />
+      <input className="field-dark h-12 px-4" name="institution" placeholder="Institution" required />
+      <textarea className="field-dark min-h-40 p-4" name="message" placeholder="Message" required />
+      {status ? <p className="rounded-2xl border border-cyan-300/15 bg-cyan-300/10 px-4 py-3 text-sm font-semibold text-cyan-100">{status}</p> : null}
       <Button className="w-fit">Send message</Button>
     </form>
   );

@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Beaker, CircuitBoard, ShoppingCart, UserRound } from "lucide-react";
+import { Beaker, CircuitBoard, UserRound } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { ButtonLink } from "@/components/ui/button";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 const nav = [
   ["Shop", "/shop"],
@@ -30,7 +31,7 @@ export async function SiteHeader() {
               {label}
             </Link>
           ))}
-          {session?.user.role === "ADMIN" ? (
+          {session?.user?.role === "ADMIN" ? (
             <Link href="/admin" className="inline-flex items-center gap-1 font-semibold text-cyan-200 hover:text-cyan-100">
               <CircuitBoard size={15} />
               Admin
@@ -38,9 +39,7 @@ export async function SiteHeader() {
           ) : null}
         </nav>
         <div className="flex items-center gap-2">
-          <ButtonLink href="/cart" variant="ghost" className="px-3" aria-label="Cart">
-            <ShoppingCart size={18} />
-          </ButtonLink>
+          <CartDrawer />
           <ButtonLink href={session ? "/account" : "/login"} variant="secondary" className="gap-2">
             <UserRound size={16} />
             <span className="hidden sm:inline">{session ? "Account" : "Login"}</span>
