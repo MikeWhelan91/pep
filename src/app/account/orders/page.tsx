@@ -15,7 +15,7 @@ export default async function CustomerOrdersPage() {
       <h1 className="text-3xl font-semibold text-slate-950">Customer orders</h1>
       <div className="mt-6 grid gap-4">
         {orders.map((order) => (
-          <article key={order.id} className="border border-slate-200 p-5">
+          <article key={order.id} className="rounded-3xl border border-slate-200 p-5">
             <div className="flex flex-wrap justify-between gap-3">
               <div><p className="font-semibold">{order.orderNumber}</p><p className="text-sm text-slate-500">{formatDate(order.createdAt)}</p></div>
               <div className="text-right"><p className="font-semibold">{formatMoney(order.totalCents)}</p><p className="text-sm text-slate-500">{order.status}</p></div>

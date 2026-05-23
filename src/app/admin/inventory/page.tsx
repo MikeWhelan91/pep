@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminInventoryPage() {
   const products = await prisma.product.findMany({ orderBy: { name: "asc" } });
   return (
-    <div className="border border-slate-200">
+    <div className="rounded-3xl border border-slate-200">
       <table className="w-full text-sm">
         <thead className="bg-slate-50 text-left"><tr><th className="p-3">Product</th><th className="p-3">SKU</th><th className="p-3">Stock</th><th className="p-3">Status</th><th className="p-3"></th></tr></thead>
         <tbody>

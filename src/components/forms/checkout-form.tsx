@@ -46,7 +46,7 @@ export function CheckoutForm() {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8 lg:grid-cols-[1fr_360px]">
       <div className="grid gap-6">
-        <section className="border border-slate-200 p-5">
+        <section className="rounded-3xl border border-slate-200 p-5">
           <h2 className="text-lg font-semibold text-slate-950">Customer details</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className={label}>Name<input className={input} {...form.register("customerName")} /></label>
@@ -55,7 +55,7 @@ export function CheckoutForm() {
             <label className={label}>Coupon code<input className={input} {...form.register("couponCode")} /></label>
           </div>
         </section>
-        <section className="border border-slate-200 p-5">
+        <section className="rounded-3xl border border-slate-200 p-5">
           <h2 className="text-lg font-semibold text-slate-950">Shipping address</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className={label}>Address line 1<input className={input} {...form.register("shippingAddress.line1")} /></label>
@@ -67,7 +67,7 @@ export function CheckoutForm() {
           </div>
         </section>
       </div>
-      <aside className="h-fit border border-slate-200 p-5">
+      <aside className="h-fit rounded-3xl border border-slate-200 p-5">
         <h2 className="text-lg font-semibold text-slate-950">Checkout</h2>
         <p className="mt-2 text-sm text-slate-600">An internal pending order is created before redirecting to Stripe Checkout. Fulfilment only begins after webhook confirmation.</p>
         {error ? <p className="mt-4 border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-700">{error}</p> : null}

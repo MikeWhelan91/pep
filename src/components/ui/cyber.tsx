@@ -16,5 +16,5 @@ export function StatusChip({ children, tone = "cyan" }: { children: React.ReactN
     violet: "border-violet-300/40 bg-violet-300/10 text-violet-100 shadow-[0_0_24px_rgba(124,58,237,.12)]",
     slate: "border-slate-500/40 bg-slate-900/70 text-slate-200",
   };
-  return <span className={`inline-flex items-center border px-3 py-1 text-xs font-semibold uppercase tracking-[.18em] ${tones[tone]}`}>{children}</span>;
+  return <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[.18em] ${tones[tone]}`}>{children}</span>;
 }

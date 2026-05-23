@@ -18,7 +18,7 @@ export default async function AdminDiscountsPage() {
         <label className="flex items-center gap-2 text-sm"><input name="active" type="checkbox" defaultChecked /> Active</label>
         <Button className="w-fit">Save discount</Button>
       </form>
-      <div className="border border-slate-200">
+      <div className="rounded-3xl border border-slate-200">
         <table className="w-full text-sm">
           <tbody>
             {discounts.map((discount) => (

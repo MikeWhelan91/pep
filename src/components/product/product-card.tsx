@@ -8,8 +8,8 @@ import { formatMoney } from "@/lib/format";
 export function ProductCard({ product }: { product: Product }) {
   return (
     <HoverLift>
-      <article className="group grid h-full gap-4 overflow-hidden border border-cyan-300/15 bg-slate-950/72 p-4 text-slate-100 shadow-[0_24px_70px_rgba(0,0,0,.22)] backdrop-blur transition hover:border-cyan-300/45 hover:shadow-[0_24px_90px_rgba(34,211,238,.12)]">
-        <Link href={`/product/${product.slug}`} className="relative aspect-square overflow-hidden bg-[radial-gradient(circle_at_center,rgba(34,211,238,.14),rgba(15,23,42,.92)_62%)]">
+      <article className="group grid h-full gap-4 overflow-hidden rounded-3xl border border-cyan-300/15 bg-slate-950/72 p-4 text-slate-100 shadow-[0_24px_70px_rgba(0,0,0,.22)] backdrop-blur transition hover:border-cyan-300/45 hover:shadow-[0_24px_90px_rgba(34,211,238,.12)]">
+        <Link href={`/product/${product.slug}`} className="relative aspect-square overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_center,rgba(34,211,238,.14),rgba(15,23,42,.92)_62%)]">
           <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(103,232,249,.22)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,.16)_1px,transparent_1px)] [background-size:28px_28px]" />
           <ProductImage src={product.imageUrls[0] ?? "/product-vial.svg"} alt="" className="relative h-full w-full object-contain p-8 transition duration-500 group-hover:scale-105" />
         </Link>

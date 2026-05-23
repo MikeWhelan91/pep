@@ -41,7 +41,7 @@ export function CartView({ products, freeShippingThresholdCents }: { products: P
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
-      <div className="border border-slate-200">
+      <div className="rounded-3xl border border-slate-200">
         {lines.length === 0 ? (
           <div className="p-8">
             <p className="font-semibold text-slate-950">Your cart is empty.</p>
@@ -85,7 +85,7 @@ export function CartView({ products, freeShippingThresholdCents }: { products: P
           </table>
         )}
       </div>
-      <aside className="h-fit border border-slate-200 p-5">
+      <aside className="h-fit rounded-3xl border border-slate-200 p-5">
         <h2 className="text-lg font-semibold text-slate-950">Order summary</h2>
         <dl className="mt-4 grid gap-2 text-sm">
           <div className="flex justify-between"><dt>Subtotal</dt><dd>{formatMoney(subtotal)}</dd></div>

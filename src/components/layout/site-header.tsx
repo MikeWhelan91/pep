@@ -17,7 +17,7 @@ export async function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-cyan-300/20 bg-slate-950/88 text-slate-100 shadow-[0_8px_40px_rgba(0,0,0,.35)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
         <Link href="/" className="group flex items-center gap-3 text-sm font-bold tracking-tight text-white">
-          <span className="flex size-10 items-center justify-center rounded-md border border-cyan-300/50 bg-cyan-300/10 text-cyan-200 shadow-[0_0_24px_rgba(34,211,238,.18)] transition group-hover:scale-105">
+          <span className="flex size-10 items-center justify-center rounded-2xl border border-cyan-300/50 bg-cyan-300/10 text-cyan-200 shadow-[0_0_24px_rgba(34,211,238,.18)] transition group-hover:scale-105">
             <Beaker size={19} />
           </span>
           <span>

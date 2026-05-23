@@ -15,11 +15,11 @@ export function ContactForm() {
     setStatus(response.ok ? "Message sent." : "Message could not be sent.");
   }
   return (
-    <form action={submit} className="grid gap-4 border border-slate-200 p-5">
-      <input className="h-10 border border-slate-300 px-3" name="name" placeholder="Name" required />
-      <input className="h-10 border border-slate-300 px-3" name="email" type="email" placeholder="Email" required />
-      <input className="h-10 border border-slate-300 px-3" name="institution" placeholder="Institution" required />
-      <textarea className="min-h-36 border border-slate-300 p-3" name="message" placeholder="Message" required />
+    <form action={submit} className="grid gap-4 rounded-3xl border border-slate-200 p-5">
+      <input className="h-10 rounded-xl border border-slate-300 px-3" name="name" placeholder="Name" required />
+      <input className="h-10 rounded-xl border border-slate-300 px-3" name="email" type="email" placeholder="Email" required />
+      <input className="h-10 rounded-xl border border-slate-300 px-3" name="institution" placeholder="Institution" required />
+      <textarea className="min-h-36 rounded-xl border border-slate-300 p-3" name="message" placeholder="Message" required />
       {status ? <p className="text-sm font-semibold text-slate-700">{status}</p> : null}
       <Button className="w-fit">Send message</Button>
     </form>

@@ -14,7 +14,7 @@ export default function ResearchPage() {
           ["Documentation", "Product records may include purity, SKU, batch, storage condition, form, and COA links for procurement review."],
           ["Boundaries", "No application, preparation, dosing, therapeutic, diagnostic, or clinical guidance is provided through this website."],
         ].map(([title, text]) => (
-          <section key={title} className="border border-slate-200 p-5">
+          <section key={title} className="rounded-3xl border border-slate-200 p-5">
             <h2 className="font-semibold text-slate-950">{title}</h2>
             <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
           </section>

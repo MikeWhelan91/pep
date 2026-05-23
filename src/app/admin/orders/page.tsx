@@ -12,7 +12,7 @@ export default async function AdminOrdersPage() {
   return (
     <div className="grid gap-4">
       {orders.map((order) => (
-        <article key={order.id} className="border border-slate-200 p-5">
+        <article key={order.id} className="rounded-3xl border border-slate-200 p-5">
           <div className="grid gap-4 lg:grid-cols-[1fr_420px]">
             <div>
               <div className="flex flex-wrap justify-between gap-3">
@@ -26,11 +26,11 @@ export default async function AdminOrdersPage() {
             <div className="grid gap-3">
               <form action={updateOrderAction} className="grid gap-3">
                 <input type="hidden" name="orderId" value={order.id} />
-                <select className="h-10 border border-slate-300 px-3" name="status" defaultValue={order.status}>
+                <select className="h-10 rounded-xl border border-slate-300 px-3" name="status" defaultValue={order.status}>
                   {statuses.map((status) => <option key={status}>{status}</option>)}
                 </select>
-                <input className="h-10 border border-slate-300 px-3" name="trackingNumber" defaultValue={order.trackingNumber ?? ""} placeholder="Tracking number" />
-                <textarea className="min-h-20 border border-slate-300 p-3" name="adminNotes" defaultValue={order.adminNotes ?? ""} placeholder="Admin notes" />
+                <input className="h-10 rounded-xl border border-slate-300 px-3" name="trackingNumber" defaultValue={order.trackingNumber ?? ""} placeholder="Tracking number" />
+                <textarea className="min-h-20 rounded-xl border border-slate-300 p-3" name="adminNotes" defaultValue={order.adminNotes ?? ""} placeholder="Admin notes" />
                 <Button>Update order</Button>
               </form>
               <form action={resendConfirmationAction}>

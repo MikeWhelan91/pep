@@ -28,9 +28,9 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
             <p className="mt-2 max-w-2xl text-sm text-slate-400">Research-only products for qualified laboratory purchasing programs.</p>
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
-            <a className="border border-cyan-300/25 bg-slate-950/70 px-3 py-2 text-cyan-100 hover:bg-cyan-300/10" href="/shop">All</a>
+            <a className="rounded-full border border-cyan-300/25 bg-slate-950/70 px-3 py-2 text-cyan-100 hover:bg-cyan-300/10" href="/shop">All</a>
             {categories.map((item) => (
-              <a key={item.category} className="border border-cyan-300/25 bg-slate-950/70 px-3 py-2 text-slate-200 hover:bg-cyan-300/10 hover:text-cyan-100" href={`/shop?category=${encodeURIComponent(item.category)}`}>
+              <a key={item.category} className="rounded-full border border-cyan-300/25 bg-slate-950/70 px-3 py-2 text-slate-200 hover:bg-cyan-300/10 hover:text-cyan-100" href={`/shop?category=${encodeURIComponent(item.category)}`}>
                 {item.category}
               </a>
             ))}

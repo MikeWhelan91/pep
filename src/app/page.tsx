@@ -43,14 +43,14 @@ export default async function Home() {
           </Reveal>
           <Reveal delay={0.12} className="flex items-center">
             <div className="glass-panel neon-border w-full p-5">
-              <div className="relative aspect-[4/3] overflow-hidden border border-cyan-300/20 bg-[radial-gradient(circle_at_50%_40%,rgba(34,211,238,.2),rgba(2,6,23,.94)_65%)]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-cyan-300/20 bg-[radial-gradient(circle_at_50%_40%,rgba(34,211,238,.2),rgba(2,6,23,.94)_65%)]">
                 <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(103,232,249,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,.12)_1px,transparent_1px)] [background-size:34px_34px]" />
                 <div className="absolute left-8 top-8">
                   <StatusChip tone="violet">Live batch matrix</StatusChip>
                 </div>
                 <div className="absolute inset-x-8 bottom-8 grid gap-3">
                   {heroSignals.map(({ title, value, Icon }) => (
-                    <div key={title} className="flex items-center gap-4 border border-cyan-300/15 bg-slate-950/75 p-4 backdrop-blur">
+                    <div key={title} className="flex items-center gap-4 rounded-2xl border border-cyan-300/15 bg-slate-950/75 p-4 backdrop-blur">
                       <Icon className="text-cyan-200" size={22} />
                       <div>
                         <p className="text-sm font-semibold text-white">{title}</p>
@@ -68,7 +68,7 @@ export default async function Home() {
       <section className="border-b border-cyan-300/15 bg-slate-950 px-4 py-8 lg:px-6">
         <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-4">
           {proofPoints.map(({ Icon, title, copy }) => (
-            <Reveal key={title} className="border border-cyan-300/15 bg-slate-900/60 p-5">
+            <Reveal key={title} className="rounded-3xl border border-cyan-300/15 bg-slate-900/60 p-5">
               <Icon className="text-cyan-200" size={24} />
               <h2 className="mt-4 font-semibold text-white">{title}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p>

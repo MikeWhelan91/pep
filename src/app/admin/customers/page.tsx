@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminCustomersPage() {
   const users = await prisma.user.findMany({ include: { orders: true }, orderBy: { createdAt: "desc" } });
   return (
-    <div className="border border-slate-200">
+    <div className="rounded-3xl border border-slate-200">
       <table className="w-full text-sm">
         <thead className="bg-slate-50 text-left"><tr><th className="p-3">Customer</th><th className="p-3">Role</th><th className="p-3">Orders</th><th className="p-3">Revenue</th><th className="p-3">Created</th></tr></thead>
         <tbody>
